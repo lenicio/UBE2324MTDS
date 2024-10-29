@@ -1,0 +1,13 @@
+body {
+  font-family: sans-serif;
+  font-size: 28px;
+}
+
+
+.sucesso {
+  color: blue;
+}
+
+.erro {
+  color: red;
+}
