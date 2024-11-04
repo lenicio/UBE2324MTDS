@@ -1,4 +1,4 @@
-- [ ] 1. Qual o total de despesas?
+- [X] 1. Qual o total de despesas?
 - [ ] 2. Qual o total de receitas?
 - [ ] 3. Quantas transações de cada tipo (Receita e Despesa) existem no array?
 - [ ] 4. Qual a média dos valores das receitas?

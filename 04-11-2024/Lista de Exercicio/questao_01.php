@@ -325,4 +325,15 @@ $transacoes = [
     "valor" => 60
   ]
 ];
+
+$totalDespesas = 0;
+
+foreach ($transacoes as $transacao) {
+  if ($transacao["tipoDeTransacao"] == "Despesa") {
+    $totalDespesas += $transacao["valor"];
+  }
+}
+
+echo "Total de transações: $totalDespesas";
+
 ?>
