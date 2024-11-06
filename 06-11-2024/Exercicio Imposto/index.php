@@ -43,7 +43,7 @@ if (validaInput($_GET, $requisitos)) {
           <p>O valor do seu imposto é: R$ <?= $imposto ?></p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">OK</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
         </div>
       </div>
     </div>
@@ -57,7 +57,7 @@ if (validaInput($_GET, $requisitos)) {
       <label for="salario" class="sr-only">Salário</label>
       <input type="number" class="form-control" id="salario" name="salario" placeholder="Salário">
     </div>
-    <button type="submit" class="btn btn-primary mb-2">Calcular Imposto</button>
+    <button type="submit" class="btn btn-primary mb-2" >Calcular Imposto</button>
   </form>
 
 
