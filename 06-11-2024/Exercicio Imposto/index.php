@@ -51,13 +51,14 @@ if (validaInput($_GET, $requisitos)) {
 
 
 
-  <form class="form-inline justify-content-center" style="margin-top: 50px !important;" action="./index.php" method="get">
+  <form class="form-inline justify-content-center" style="margin-top: 50px !important;" 
+    action="./index.php" method="get">
 
     <div class="form-group mx-sm-3 mb-2">
       <label for="salario" class="sr-only">Salário</label>
       <input type="number" class="form-control" id="salario" name="salario" placeholder="Salário">
     </div>
-    <button type="submit" class="btn btn-primary mb-2" >Calcular Imposto</button>
+    <button type="submit" class="btn btn-primary mb-2">Calcular Imposto</button>
   </form>
 
 

@@ -10,4 +10,4 @@ Caso a idade seja entre 18 e 65, e o genero seja feminino, exiba: Alistamento Op
 
 Inclua um campo, cujo o usuário possa marcar se já fez o alistamento. Caso tenha marcado, e ele preencha os requisitos do alistamento obrigatório, mostre a mensagem: Reserva Ativa do Brasil!
 
-O arquivo de verificacao deverá conter apenas a função ValidaObrigatoriedade() {}
+O arquivo de verificacao deverá conter apenas a função ValidaObrigatoriedade() {}c

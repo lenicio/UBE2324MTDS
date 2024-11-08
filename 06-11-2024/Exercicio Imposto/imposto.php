@@ -1,5 +1,12 @@
 <?php 
 
+/*
+- Até 2.000                   - isento
+- Entre 2.000,01 até 3.000,00 - 6% 
+- Entre 3.000,01 até 4.000,00 - 12%
+- Acima de 4.000,00           - 18% 
+*/
+
 function CalculaImposto($salario) {
   
   $imposto = 0;
@@ -19,4 +26,5 @@ function CalculaImposto($salario) {
   }
 
   return number_format($imposto, 2);
+
 }
