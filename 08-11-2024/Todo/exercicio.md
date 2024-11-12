@@ -3,15 +3,9 @@
 ## Descrição
 Nesta atividade, vocês desenvolverão um **Gerenciador de Tarefas** em PHP utilizando `$_SESSION` para armazenar dados temporariamente. Esse projeto permitirá que vocês pratiquem o uso de arrays multidimensionais e manipulação de sessões, aplicando também validações para garantir a consistência dos dados.
 
-## Objetivos de Aprendizagem
-- Manipular arrays multidimensionais em PHP.
-- Usar `$_SESSION` para armazenar dados temporários.
-- Implementar funções de adição, remoção e atualização de itens em arrays.
-- Validar dados de formulário para evitar entradas vazias ou incorretas.
 
 ## Estrutura do Projeto
 O projeto consiste em uma aplicação simples de gerenciamento de tarefas, onde cada tarefa possui os seguintes campos:
-- `id`: Um identificador único da tarefa.
 - `titulo`: O título da tarefa.
 - `descricao`: A descrição detalhada da tarefa.
 - `status`: O status atual da tarefa, que pode ser "Pendente" ou "Concluída".
