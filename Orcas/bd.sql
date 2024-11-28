@@ -2,6 +2,8 @@ DROP DATABASE IF EXISTS orcas;
 
 CREATE DATABASE IF NOT EXISTS `orcas`;
 
+USE orcas;
+
 CREATE TABLE IF NOT EXISTS `categorias_despesa` (
   `id` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(255) NOT NULL,

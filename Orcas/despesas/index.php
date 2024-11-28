@@ -7,13 +7,15 @@ $sql = "select
             dp.id as despesa_parcela_id,
             dp.valor,
             dp.status,
-            d.descricao as despesa_descricao,
+            dp.descricao as despesa_descricao,
             dp.data,
             cd.descricao as categoria_descricao
         from 
             despesas_parcela dp
             join despesas d on dp.despesa_id = d.id
             join categorias_despesa cd on d.categoria_id = cd.id
+        where
+            month(dp.data) = 11
         order by 
             dp.data desc";
 
@@ -25,6 +27,8 @@ $sql = "select * from categorias_despesa order by descricao";
 $sql = $pdo->prepare($sql);
 $sql->execute();
 $categorias = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+$mesAtual = date('m');
 
 ?>
 
@@ -41,7 +45,7 @@ $categorias = $sql->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <h1>Despesas</h1>
     <h2>Adicionar Despesa</h2>
-    <form action="./despesas/adicionar.php" method="get">
+    <form action="./adicionar.php" method="get">
         <div>
             <label for="descricao">Descrição:</label>
             <input type="text" name="descricao" id="descricao">
@@ -91,6 +95,7 @@ $categorias = $sql->fetchAll(PDO::FETCH_ASSOC);
                 <th>Valor</th>
                 <th>Data</th>
                 <th>Status</th>
+                <th>Operação</th>
             </tr>
         </thead>
         <tbody>
@@ -101,10 +106,12 @@ $categorias = $sql->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= number_format($despesa["valor"], 2, ',') ?></td>
                     <td><?= $despesa["data"] ?></td>
                     <td><?= $despesa["status"] ?></td>
+                    <td><a href="">[PAGAR]</a></td>
                 </tr>
             <?php endforeach ?>
         </tbody>
     </table>
 </body>
-
+<a href="/despesas/index.php?mes=<?=$mesAtual-1?>">Mês anterior</a>
+<a href="/despesas/index.php?mes=<?=$mesAtual+1?>">Próximo mês</a>
 </html>
