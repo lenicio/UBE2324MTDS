@@ -35,6 +35,7 @@ $categorias = $sql->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
@@ -97,7 +98,7 @@ $categorias = $sql->fetchAll(PDO::FETCH_ASSOC);
                 <tr>
                     <td><?= $despesa["despesa_descricao"] ?></td>
                     <td><?= $despesa["categoria_descricao"] ?></td>
-                    <td><?= $despesa["valor"] ?></td>
+                    <td><?= number_format($despesa["valor"], 2, ',') ?></td>
                     <td><?= $despesa["data"] ?></td>
                     <td><?= $despesa["status"] ?></td>
                 </tr>

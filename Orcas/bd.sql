@@ -1,81 +1,78 @@
-CREATE DATABASE IF NOT EXISTS orcas;
+DROP DATABASE IF EXISTS orcas;
 
-USE orcas;
+CREATE DATABASE IF NOT EXISTS `orcas`;
 
+CREATE TABLE IF NOT EXISTS `categorias_despesa` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(255) NOT NULL,
+  `data_criacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `descricao` (`descricao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `usuarios` (
-	`id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`nome` VARCHAR(255),
-	`email` VARCHAR(100) NOT NULL UNIQUE,
-	`senha` VARCHAR(60) NOT NULL,
-	`data_criacao` TIMESTAMP DEFAULT current_timestamp,
-	PRIMARY KEY(`id`)
-);
+CREATE TABLE IF NOT EXISTS `categorias_receita` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(255) NOT NULL,
+  `data_criacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `descricao` (`descricao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE IF NOT EXISTS `despesas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `categoria_id` int NOT NULL,
+  `data_criacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `categoria_id` (`categoria_id`),
+  CONSTRAINT `despesas_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias_despesa` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `categorias_despesa` (
-	`id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`descricao` VARCHAR(255) NOT NULL UNIQUE,
-	`data_criacao` TIMESTAMP NOT NULL DEFAULT current_timestamp,
-	PRIMARY KEY(`id`)
-);
+CREATE TABLE IF NOT EXISTS `despesas_parcela` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(255) NOT NULL,
+  `valor` decimal(10,0) NOT NULL,
+  `data` date NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `despesa_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `despesa_id` (`despesa_id`),
+  CONSTRAINT `despesas_parcela_ibfk_1` FOREIGN KEY (`despesa_id`) REFERENCES `despesas` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE IF NOT EXISTS `receitas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `categoria_id` int NOT NULL,
+  `data_criacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `categoria_id` (`categoria_id`),
+  CONSTRAINT `receitas_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias_receita` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `categorias_receita` (
-	`id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`descricao` VARCHAR(255) NOT NULL UNIQUE,
-	`data_criacao` TIMESTAMP NOT NULL DEFAULT current_timestamp,
-	PRIMARY KEY(`id`)
-);
+CREATE TABLE IF NOT EXISTS `receitas_parcela` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(255) NOT NULL,
+  `valor` decimal(10,0) NOT NULL,
+  `data` date NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `receita_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `receita_id` (`receita_id`),
+  CONSTRAINT `receitas_parcela_ibfk_1` FOREIGN KEY (`receita_id`) REFERENCES `receitas` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
-CREATE TABLE `receitas` (
-	`id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`descricao` VARCHAR(255) NOT NULL,
-	`categoria_id` INTEGER NOT NULL,
-	`data_criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY(`id`)
-);
-
-
-CREATE TABLE `receitas_parcela` (
-	`id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`valor` DECIMAL NOT NULL,
-	`data` DATE NOT NULL,
-	`status` VARCHAR(255) NOT NULL,
-	`receita_id` INTEGER NOT NULL,
-	PRIMARY KEY(`id`)
-);
-
-
-CREATE TABLE `despesas` (
-	`id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`descricao` VARCHAR(255) NOT NULL,
-	`categoria_id` INTEGER NOT NULL,
-	`data_criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY(`id`)
-);
-
-
-CREATE TABLE `despesas_parcela` (
-	`id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-	`valor` DECIMAL NOT NULL,
-	`data` DATE NOT NULL,
-	`status` VARCHAR(255),
-	`despesa_id` INTEGER,
-	PRIMARY KEY(`id`)
-);
-
-
-ALTER TABLE `receitas`
-ADD FOREIGN KEY(`categoria_id`) REFERENCES `categorias_receita`(`id`)
-ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE `receitas_parcela`
-ADD FOREIGN KEY(`receita_id`) REFERENCES `receitas`(`id`)
-ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE `despesas`
-ADD FOREIGN KEY(`categoria_id`) REFERENCES `categorias_despesa`(`id`)
-ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE `despesas_parcela`
-ADD FOREIGN KEY(`despesa_id`) REFERENCES `despesas`(`id`)
-ON UPDATE NO ACTION ON DELETE NO ACTION;
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(60) NOT NULL,
+  `data_criacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

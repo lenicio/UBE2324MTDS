@@ -8,7 +8,11 @@ $valor = $_GET["valor"];
 $status = $_GET["status"];
 $data = $_GET["data"];
 $parcela = $_GET["parcela"];
+$data = $_GET["data"];
 
+
+$data = new DateTime($data);
+$valor = floatval($valor) / floatval($parcela);
 
 $sql = "insert into despesas (descricao, categoria_id) values (:descricao, :categoria_id)";
 $sql = $pdo->prepare($sql);
@@ -19,22 +23,19 @@ $sql->execute();
 $despesaId = $pdo->lastInsertId();
 
 
+for ($cont = 1; $cont <= $parcela; $cont++) {
+    $sql = "insert into despesas_parcela (valor, data, status, despesa_id) values(:valor, :data, :status, :despesa_id)";
+    $sql = $pdo->prepare($sql);
+    $sql->bindValue(":valor", $valor);
+    $sql->bindValue(":data", $data->format("Y-m-d"));
+    $sql->bindValue(":status", $status);
+    $sql->bindValue(":despesa_id", $despesaId);
+    $sql->execute();
+    $data->modify("+1 month");
+}
 
-$sql = "insert into despesas_parcela (valor, data, status, despesa_id) values(:valor, :data, :status, :despesa_id)";
-$sql = $pdo->prepare($sql);
-$sql->bindValue(":valor", $valor);
-$sql->bindValue(":data", $data);
-$sql->bindValue(":status", $status);
-$sql->bindValue(":despesa_id", $despesaId);
-$sql->execute();
+
+
 
 header("Location: ./index.php");
 exit;
-
-
-// $data = $_GET["data"];
-
-// $data = new DateTime($data);
-
-// $data->modify("+1 month");
-// echo $data->format("Y-m-d");
